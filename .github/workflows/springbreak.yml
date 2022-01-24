@@ -1,0 +1,24 @@
+name: Add one day per day
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    
+jobs:
+  add_one:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2.3.3
+    - run: days.sh > README.md
+    - run: cat README.md
+    - uses: EndBug/add-and-commit@v5
+      with:
+        add: 'README.md'
+        author_name: Bahdah Shin
+        author_email: bahdahdev@gmail.com
+        branch: main
+        cwd: '.'
+        message: 'adding one'
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
